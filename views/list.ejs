@@ -1,21 +1,27 @@
-<%- include('header') -%> 
-    <div class="box" id="heading">
-        <h1><%= listTitle %> </h1>
-    </div>
-    <div class="box">
-        <% for( let index = 0; index < newitem.length; index++ ) { %>
+<%- include('header') -%>
+  <div class="box" id="heading">
+    <h1>
+      <%= listTitle %>
+    </h1>
+  </div>
+  <div class="box">
+    <% newitem.forEach((element)=> { %>
+      <form action="/delete" method="post">
         <div class="item">
-            <input type="checkbox">
-            <span class="checkmark">
-                <%= newitem[index] %> 
-            </span>
+          <input type="checkbox" onchange="this.form.submit()" name="checkbox" value="<%= element._id %>">
+          <span class="checkmark">
+            <%= element.name %>
+          </span>
+          <input type="hidden" name="listName" value="<%= listTitle %>">
         </div>
-    <% } %>  
-    <br>
-    <form action="/" method="post" class="item">
-        <input type="text" name="task" id="task" placeholder="Add Item" autocomplete="off">
-        <button type="submit" name="button" value="<%= listTitle %>">+</button>
-    </form>      
-    </div>
-<%- include('footer') -%>    
-    
+
+      </form>
+      <% }); %>
+
+        <br>
+        <form action="/" method="post" class="item">
+          <input type="text" name="task" id="task" placeholder="Add Item" autocomplete="off">
+          <button type="submit" name="button" value="<%=listTitle%>">+</button>
+        </form>
+  </div>
+  <%- include('footer') -%>
